@@ -1,5 +1,11 @@
 # KSP-Recall :: Change Log
 
+* 2023-0331: 0.4.0.5 (LisiasT) for KSP >= 1.4.1
+	+ I overreacted while restoring the PAW's entries, and ended up allowing some entries to be shown when they shouldn't. Fixing it.
+	+ Properly implemented what I intended to be the `DebugMode` at first place.
+	+ Closes issues:
+		- [#76](https://github.com/net-lisias-ksp/KSP-Recall/issues/76) Implement the PAW's DebugMode properly
+		- [#75](https://github.com/net-lisias-ksp/KSP-Recall/issues/75) 0.4.0.4 is screwing PAW
 * 2023-0328: 0.4.0.4 (LisiasT) for KSP >= 1.4.1
 	+ Restores the presence of the PAW's entries, setting them to be shown by default from now on. A patch can turn them off. 
 	+ Closes issues:
