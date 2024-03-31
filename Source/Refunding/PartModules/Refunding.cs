@@ -25,6 +25,9 @@ namespace KSP_Recall.Refunds
 {
 	public class Refunding : Abstract
 	{
+		private const bool visibleOnFlight = false;
+		private const bool visibleOnEditor = true;
+
 		internal const string RESOURCENAME = "RefundingForKSP111x";
 		private decimal costFix = 0;
 		protected override float CostFix => Convert.ToSingle(this.costFix);
@@ -39,7 +42,7 @@ namespace KSP_Recall.Refunds
 
 		#region KSP UI
 
-		[KSPField(isPersistant = true, guiActive = false, guiActiveEditor = true, guiName = "KSP-Recall::Refunding")]
+		[KSPField(isPersistant = true, guiActive = visibleOnFlight, guiActiveEditor = visibleOnEditor, guiName = "KSP-Recall::Refunding")]
 		[UI_Toggle(disabledText = "Disabled", enabledText = "Enabled", scene = UI_Scene.Editor)]
 		public bool active = false;
 		protected override bool IsActive { get => this.active; }
@@ -58,6 +61,11 @@ namespace KSP_Recall.Refunds
 		{
 			base.OnStart(state);
 			this.fk = this.part.Modules.GetModule<FundsKeeper>();
+			{
+				BaseField bf = this.Fields["active"];
+				bf.guiActive = visibleOnFlight && Globals.Instance.PawEntries;
+				bf.guiActiveEditor = visibleOnEditor && Globals.Instance.PawEntries;
+			}
 		}
 
 		public override void OnLoad(ConfigNode node)

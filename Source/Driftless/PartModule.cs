@@ -26,9 +26,12 @@ namespace KSP_Recall { namespace Driftless
 {
 	public class Driftless : PartModule
 	{
+		private const bool visibleOnFlight = true;
+		private const bool visibleOnEditor = false;
+
 		#region KSP UI
 
-		[KSPField(isPersistant = true, guiActive = true, guiActiveEditor = false, guiName = "KSP-Recall::Driftless")]
+		[KSPField(isPersistant = true, guiActive = visibleOnFlight, guiActiveEditor = visibleOnEditor, guiName = "KSP-Recall::Driftless")]
 		[UI_Toggle(disabledText = "Disabled", enabledText = "Enabled", scene = UI_Scene.Flight)]
 		public bool active = false;
 
@@ -50,7 +53,8 @@ namespace KSP_Recall { namespace Driftless
 			base.OnStart(state);
 			{
 				BaseField bf = this.Fields["active"];
-				bf.guiActive = bf.guiActiveEditor = Globals.Instance.PawEntries;
+				bf.guiActive = visibleOnFlight && Globals.Instance.PawEntries;
+				bf.guiActiveEditor = visibleOnEditor && Globals.Instance.PawEntries;
 			}
 		}
 

@@ -25,6 +25,9 @@ namespace KSP_Recall.Refunds
 {
 	public class StealBackMyFunds : Abstract
 	{
+		private const bool visibleOnFlight = false;
+		private const bool visibleOnEditor = true;
+
 		internal const string RESOURCENAME = "StealBackMyFunds";
 		internal new readonly decimal THRESHOLD = Convert.ToDecimal(Abstract.THRESHOLD);
 
@@ -44,7 +47,7 @@ namespace KSP_Recall.Refunds
 
 		#region KSP UI
 
-		[KSPField(isPersistant = true, guiActive = false, guiActiveEditor = true, guiName = "KSP-Recall::StealBackMyFunds")]
+		[KSPField(isPersistant = true, guiActive = visibleOnFlight, guiActiveEditor = visibleOnEditor, guiName = "KSP-Recall::StealBackMyFunds")]
 		[UI_Toggle(disabledText = "Disabled", enabledText = "Enabled", scene = UI_Scene.Editor)]
 		public bool active = false;
 		protected override bool IsActive { get => this.active; }
@@ -65,7 +68,8 @@ namespace KSP_Recall.Refunds
 			this.fk = this.part.Modules.GetModule<FundsKeeper>();
 			{
 				BaseField bf = this.Fields["active"];
-				bf.guiActive = bf.guiActiveEditor = Globals.Instance.PawEntries;
+				bf.guiActive = visibleOnFlight && Globals.Instance.PawEntries;
+				bf.guiActiveEditor = visibleOnEditor && Globals.Instance.PawEntries;
 			}
 		}
 

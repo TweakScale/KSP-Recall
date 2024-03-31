@@ -26,9 +26,12 @@ namespace KSP_Recall { namespace ChillingOut
 {
 	public class ChillingOut : PartModule
 	{
+		private const bool visibleOnFlight = true;
+		private const bool visibleOnEditor = false;
+
 		#region KSP UI
 
-		[KSPField(isPersistant = true, guiActive = true, guiActiveEditor = false, guiName = "KSP-Recall::ChillingOut")]
+		[KSPField(isPersistant = true, guiActive = visibleOnFlight, guiActiveEditor = visibleOnEditor, guiName = "KSP-Recall::ChillingOut")]
 		[UI_Toggle(disabledText = "Disabled", enabledText = "Enabled", scene = UI_Scene.Flight)]
 		public bool active = false;
 
@@ -57,7 +60,8 @@ namespace KSP_Recall { namespace ChillingOut
 			}
 			{
 				BaseField bf = this.Fields["active"];
-				bf.guiActive = bf.guiActiveEditor = Globals.Instance.PawEntries;
+				bf.guiActive = visibleOnFlight && Globals.Instance.PawEntries;
+				bf.guiActiveEditor = visibleOnEditor && Globals.Instance.PawEntries;
 			}
 		}
 

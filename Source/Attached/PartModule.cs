@@ -25,9 +25,12 @@ namespace KSP_Recall { namespace Attached
 {
 	public class Attached : PartModule
 	{
+		private const bool visibleOnFlight = false;
+		private const bool visibleOnEditor = true;
+
 		#region KSP UI
 
-		[KSPField(isPersistant = true, guiActive = false, guiActiveEditor = true, guiName = "KSP-Recall::Attached")]
+		[KSPField(isPersistant = true, guiActive = visibleOnFlight, guiActiveEditor = visibleOnEditor, guiName = "KSP-Recall::Attached")]
 		[UI_Toggle(disabledText = "Disabled", enabledText = "Enabled", scene = UI_Scene.Editor)]
 		public bool active = false;
 
@@ -50,7 +53,8 @@ namespace KSP_Recall { namespace Attached
 			base.OnStart(state);
 			{
 				BaseField bf = this.Fields["active"];
-				bf.guiActive = bf.guiActiveEditor = Globals.Instance.PawEntries;
+				bf.guiActive = visibleOnFlight && Globals.Instance.PawEntries;
+				bf.guiActiveEditor = visibleOnEditor && Globals.Instance.PawEntries;
 			}
 		}
 

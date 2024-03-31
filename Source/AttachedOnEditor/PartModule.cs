@@ -27,9 +27,12 @@ namespace KSP_Recall { namespace AttachedOnEditor
 {
 	public class AttachedOnEditor : PartModule
 	{
+		private const bool visibleOnFlight = false;
+		private const bool visibleOnEditor = true;
+
 		#region KSP UI
 
-		[KSPField(isPersistant = true, guiActive = false, guiActiveEditor = true, guiName = "KSP-Recall::AttachedOnEditor")]
+		[KSPField(isPersistant = true, guiActive = visibleOnFlight, guiActiveEditor = visibleOnEditor, guiName = "KSP-Recall::AttachedOnEditor")]
 		[UI_Toggle(disabledText = "Disabled", enabledText = "Enabled", scene = UI_Scene.Editor)]
 		public bool active = false;
 
@@ -73,6 +76,18 @@ namespace KSP_Recall { namespace AttachedOnEditor
 			this.active = Globals.Instance.AttachedOnEditor;
 			this.isCopy = false;
 			this.ActivateMe();
+		}
+
+		public override void OnStart(StartState state)
+		{
+			Log.dbg("OnStart {0}:{1:X} {2} {3}", this.name, this.part.GetInstanceID(), state, this.active);
+			if (this.active && HighLogic.LoadedSceneIsEditor) this.RestoreAttachments();
+			base.OnStart(state);
+			{
+				BaseField bf = this.Fields["active"];
+				bf.guiActive = visibleOnFlight && Globals.Instance.PawEntries;
+				bf.guiActiveEditor = visibleOnEditor && Globals.Instance.PawEntries;
+			}
 		}
 
 		public override void OnCopy(PartModule fromModule)
@@ -135,17 +150,6 @@ namespace KSP_Recall { namespace AttachedOnEditor
 			node.SetValue("userReallyDeactivatedIt", !this.active, true);
 
 			this.SaveTo(node);
-		}
-
-		public override void OnStart(StartState state)
-		{
-			Log.dbg("OnStart {0} {1} {2}", this.PartInstanceId, state, this.active);
-			if (this.active && HighLogic.LoadedSceneIsEditor) this.RestoreAttachments();
-			base.OnStart(state);
-			{
-				BaseField bf = this.Fields["active"];
-				bf.guiActive = bf.guiActiveEditor = Globals.Instance.PawEntries;
-			}
 		}
 
 		#endregion
