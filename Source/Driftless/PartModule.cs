@@ -53,8 +53,8 @@ namespace KSP_Recall { namespace Driftless
 			base.OnStart(state);
 			{
 				BaseField bf = this.Fields["active"];
-				bf.guiActive = visibleOnFlight && Globals.Instance.PawEntries;
-				bf.guiActiveEditor = visibleOnEditor && Globals.Instance.PawEntries;
+				bf.guiActive = Globals.Instance.DebugMode || (visibleOnFlight && Globals.Instance.PawEntries);
+				bf.guiActiveEditor = Globals.Instance.DebugMode || (visibleOnEditor && Globals.Instance.PawEntries);
 			}
 		}
 

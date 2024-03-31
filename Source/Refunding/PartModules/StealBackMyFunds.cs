@@ -68,8 +68,8 @@ namespace KSP_Recall.Refunds
 			this.fk = this.part.Modules.GetModule<FundsKeeper>();
 			{
 				BaseField bf = this.Fields["active"];
-				bf.guiActive = visibleOnFlight && Globals.Instance.PawEntries;
-				bf.guiActiveEditor = visibleOnEditor && Globals.Instance.PawEntries;
+				bf.guiActive = Globals.Instance.DebugMode || (visibleOnFlight && Globals.Instance.PawEntries);
+				bf.guiActiveEditor = Globals.Instance.DebugMode || (visibleOnEditor && Globals.Instance.PawEntries);
 			}
 		}
 

@@ -30,6 +30,8 @@ namespace KSP_Recall
 
 		public static Globals Instance => INSTANCE ?? (INSTANCE = new Globals());
 
+		public bool DebugMode => KSPe.Globals<Globals>.DebugMode;
+
 		public readonly bool Attached;
 		public readonly bool ChillingOut;
 		public readonly bool Driftless;
