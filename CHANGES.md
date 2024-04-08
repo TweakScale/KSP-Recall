@@ -1,5 +1,9 @@
 # KSP-Recall :: Changes
 
+* 2024-0407: 0.4.1.0 (LisiasT) for KSP >= 1.4.1
+	+ Reworks `AttachedOnEditor` to be resilient a changes made by Monkey Patching inside Editor that changes the order in which some internal Editor events happen.
+	+ Closes issues:
+		- [#73](https://github.com/net-lisias-ksp/KSP-Recall/issues/74) Understand why `BetterEditorUndoRedo` ended up screwing `AttachedOnEditor` indirectly 
 * 2023-0331: 0.4.0.5 (LisiasT) for KSP >= 1.4.1
 	+ I overreacted while restoring the PAW's entries, and ended up allowing some entries to be shown when they shouldn't. Fixing it.
 	+ Properly implemented what I intended to be the `DebugMode` at first place.
