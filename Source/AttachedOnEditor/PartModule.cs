@@ -164,7 +164,15 @@ namespace KSP_Recall { namespace AttachedOnEditor
 			if (this.part.GetInstanceID() != instanceId) return;
 
 			Log.dbg("OnPartAttachmentNodesChanged for InstanceId {0:X}", instanceId);
-			this.PreserveCurrentAttachmentNodes();
+			try
+			{
+				this.PreserveThisAttachmentNodes(data);
+			}
+			catch (Exception e)
+			{
+				Log.trace("Missing data on OnPartAttachmentNodesChanged(BaseEventDetails). Reverting to PreserveCurrentAttachmentNodes. {0}", e);
+				this.PreserveCurrentAttachmentNodes();
+			}
 		}
 
 		#endregion
@@ -202,6 +210,30 @@ namespace KSP_Recall { namespace AttachedOnEditor
 		private void ActivateMe()
 		{
 			this.active = Globals.Instance.AttachedOnEditor;
+		}
+
+		private void PreserveThisAttachmentNodes(BaseEventDetails data)
+		{
+			Log.dbg("PreserveThisAttachmentNodes(BaseEventDetails) for {0} hasAttachNodes? {1}", this.PartInstanceId, null != this.part.attachNodes);
+
+			this.originalAttachNodePos.Clear();
+			this.originalAttachNodeSize.Clear();
+			this.originalAttachNodeOrientation.Clear();
+			this.originalAttachNodeOffset.Clear();
+
+			// Something in BaseEventDetails is swalling exceptions. So we need to fake it ourselves.
+			// See https://github.com/net-lisias-ksp/KSP-Recall/issues/73#issuecomment-2041677766
+			int attachNodesCount = data.Get<int>("attachNodesCount");
+			if (0 == attachNodesCount) throw new KeyNotFoundException("attachNodesCount");
+
+			// From this point, in Kraken we Trust!!!
+			for (int i = 0; i < attachNodesCount; ++i)
+			{
+				this.originalAttachNodePos.Insert(i, data.Get<UnityEngine.Vector3>(String.Format("AttachNode_position_{0}",i)));
+				this.originalAttachNodeSize.Insert(i, data.Get<int>(String.Format("AttachNode_size_{0}",i)));
+				this.originalAttachNodeOrientation.Insert(i, data.Get<UnityEngine.Vector3>(String.Format("AttachNode_orientation_{0}",i)));
+				this.originalAttachNodeOffset.Insert(i, data.Get<UnityEngine.Vector3>(String.Format("AttachNode_offset_{0}",i)));
+			}
 		}
 
 		private void PreserveCurrentAttachmentNodes()
