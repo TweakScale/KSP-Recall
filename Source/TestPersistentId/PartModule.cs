@@ -1,6 +1,6 @@
 ﻿/*
 	This file is part of TestPersistentId, a component of KSP-Recall
-		© 2020-2023 LisiasT : http://lisias.net <support@lisias.net>
+		© 2020-2024 LisiasT : http://lisias.net <support@lisias.net>
 
 	KSP-Recall is double licensed, as follows:
 		* SKL 1.0 : https://ksp.lisias.net/SKL-1_0.txt
