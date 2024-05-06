@@ -86,6 +86,7 @@ namespace KSP_Recall.Refunds
 
 			// The code below should not be executed on game loading, as we don't have a real Part
 			// on memory to work on.
+			Log.dbg("HighLogic.LoadedScene {0}", HighLogic.LoadedScene);
 			if (HighLogic.LoadedScene < GameScenes.MAINMENU) return;
 
 			// Always clean up the Resource on loading, as we need to get rid of reminiscents
