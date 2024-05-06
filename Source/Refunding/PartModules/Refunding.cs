@@ -48,7 +48,7 @@ namespace KSP_Recall.Refunds
 		#region KSP UI
 
 		[KSPField(isPersistant = true, guiActive = visibleOnFlight, guiActiveEditor = visibleOnEditor, guiName = "KSP-Recall::Refunding")]
-		[UI_Toggle(disabledText = "Disabled", enabledText = "Enabled", scene = UI_Scene.Editor)]
+		[UI_Toggle(disabledText = "Disabled", enabledText = "Enabled", scene = UI_Scene.All)]
 		public bool active = false;
 		protected override bool IsActive { get => this.active; }
 

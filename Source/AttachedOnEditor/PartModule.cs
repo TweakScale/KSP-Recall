@@ -33,7 +33,7 @@ namespace KSP_Recall { namespace AttachedOnEditor
 		#region KSP UI
 
 		[KSPField(isPersistant = true, guiActive = visibleOnFlight, guiActiveEditor = visibleOnEditor, guiName = "KSP-Recall::AttachedOnEditor")]
-		[UI_Toggle(disabledText = "Disabled", enabledText = "Enabled", scene = UI_Scene.Editor)]
+		[UI_Toggle(disabledText = "Disabled", enabledText = "Enabled", scene = UI_Scene.All)]
 		public bool active = false;
 
 		// TODO: remove it in a few months.
