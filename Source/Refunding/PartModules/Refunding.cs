@@ -35,7 +35,12 @@ namespace KSP_Recall.Refunds
 		private static PartResourceDefinition __PRD;
 		protected override PartResourceDefinition PRD => __PRD??(__PRD = PartResourceLibrary.Instance.GetDefinition(this.ResouceName));
 
-		public Refunding() : base(true, RESOURCENAME, KSPe.Util.Log.Logger.CreateForType<Refunding>("KSP-Recall", "Refunding", 0)) { }
+		public Refunding() : base(
+							true
+							, RESOURCENAME
+							, KSPe.Util.Log.Logger.CreateForType<Refunding>("KSP-Recall", "Refunding"
+							, 0)
+		) { }
 
 		#region KSP UI
 
