@@ -232,17 +232,25 @@ namespace KSP_Recall { namespace AttachedOnEditor
 		{
 			if (!this.initialised) return; // hack to prevent the UpgradePipeline to screw us up when loading crafts still without AttachedOnEditor
 			Log.dbg("RestoreCurrentAttachmentPoints for {0}", this.PartInstanceId);
+
+			Log.dbg("{0} {1} {2} {3}", this.originalAttachNodePos.Count, this.originalAttachNodeSize.Count, this.originalAttachNodeOrientation.Count, this.originalAttachNodeOffset.Count);
+			Log.dbg("{0}", this.part.attachNodes.Count);
+
 			for(int i = 0; i < this.originalAttachNodePos.Count; ++i)
 				this.part.attachNodes[i].position = this.originalAttachNodePos[i];
+			Log.dbg("0");
 
 			for(int i = 0; i < this.originalAttachNodeSize.Count; ++i)
 				this.part.attachNodes[i].size = this.originalAttachNodeSize[i];
+			Log.dbg("1");
 
 			for(int i = 0; i < this.originalAttachNodeOrientation.Count; ++i)
 				this.part.attachNodes[i].orientation = this.originalAttachNodeOrientation[i];
+			Log.dbg("2");
 
 			for(int i = 0; i < this.originalAttachNodeOffset.Count; ++i)
 				this.part.attachNodes[i].offset = this.originalAttachNodeOffset[i];
+			Log.dbg("3");
 		}
 
 		private void RestoreCurrentAttachments()
@@ -310,6 +318,7 @@ namespace KSP_Recall { namespace AttachedOnEditor
 
 		private void LoadAttachedNodePosFrom(ConfigNode node)
 		{
+			this.originalAttachNodePos.Clear();
 			string[] list = node.GetValues("originalAttachNodePos");
 			for(int i = 0; i < list.Length; ++i)
 			{
@@ -320,6 +329,7 @@ namespace KSP_Recall { namespace AttachedOnEditor
 
 		private void LoadAttachedNodeSizeFrom(ConfigNode node)
 		{
+			this.originalAttachNodeSize.Clear();
 			string[] list = node.GetValues("originalAttachNodeSize");
 			for(int i = 0; i < list.Length; ++i)
 			{
@@ -330,6 +340,7 @@ namespace KSP_Recall { namespace AttachedOnEditor
 
 		private void LoadAttachedNodeOrientationFrom(ConfigNode node)
 		{
+			this.originalAttachNodeOrientation.Clear();
 			string[] list = node.GetValues("originalAttachNodeOrientation");
 			for(int i = 0; i < list.Length; ++i)
 			{
@@ -340,6 +351,7 @@ namespace KSP_Recall { namespace AttachedOnEditor
 
 		private void LoadAttachedNodePosOffsetFrom(ConfigNode node)
 		{
+			this.originalAttachNodeOffset.Clear();
 			string[] list = node.GetValues("originalAttachNodeOffset");
 			for(int i = 0; i < list.Length; ++i)
 			{
